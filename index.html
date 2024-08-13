@@ -68,7 +68,7 @@
                 <i class="fas fa-arrow-right"></i>
             </button>
             <h1 class="text-3xl font-bold text-center">تطبيق قنوات البث المباشر</h1>
-            <div class="w-8"></div> <!-- هذا العنصر للحفاظ على توازن التخطيط -->
+            <div class="w-8"></div>
         </div>
     </nav>
 
@@ -86,6 +86,10 @@
                 <div class="category-card bg-white rounded-2xl shadow-xl overflow-hidden cursor-pointer transform transition duration-500 hover:scale-105 w-64 h-64 flex flex-col justify-center items-center" onclick="showChannels('entertainment')">
                     <i class="fas fa-film category-icon text-purple-600"></i>
                     <h2 class="text-2xl font-bold text-center text-gray-800 mt-4">ترفيه</h2>
+                </div>
+                <div class="category-card bg-white rounded-2xl shadow-xl overflow-hidden cursor-pointer transform transition duration-500 hover:scale-105 w-64 h-64 flex flex-col justify-center items-center" onclick="showChannels('sports')">
+                    <i class="fas fa-futbol category-icon text-green-600"></i>
+                    <h2 class="text-2xl font-bold text-center text-gray-800 mt-4">رياضة</h2>
                 </div>
             </div>
         </div>
@@ -131,6 +135,13 @@
                     image: "https://te.legra.ph/file/32a09bedcd220b1e39f0b.png",
                     url: "https://5d94523502c2d.streamlock.net/alsharqiyalive/mystream/playlist.m3u8"
                 },
+                {
+                    name: "العراقية",
+                    description: "قناة العراقية الإخبارية",
+                    image: "https://te.legra.ph/file/f5110d84fababc9a15011.png",
+                    url: "https://tlfaz.com/Tv-Channel/iraqia-general/?embed_media_shr=1",
+                    isIframe: true
+                }
             ],
             kids: [
                 {
@@ -139,6 +150,20 @@
                     image: "https://te.legra.ph/file/78c734e185e63a3923bf6.jpg",
                     url: "https://shls-spacetoon-prod-dub.shahid.net/out/v1/6240b773a3f34cca95d119f9e76aec02/index.m3u8"
                 },
+                {
+                    name: "CN CARTON",
+                    description: "كارتون نتورك بالعربي",
+                    image: "https://te.legra.ph/file/464483206328182755847.png",
+                    url: "https://tlfaz.com/Tv-Channel/cartoon-network-arabic/?embed_media_shr=1",
+                    isIframe: true
+                }, 
+                {
+                    name: "MBC3",
+                    description: "قناة MBC3 للأطفال",
+                    image: "https://te.legra.ph/file/7181e72d8721110ebbcb7.png",
+                    url: "https://tlfaz.com/Tv-Channel/mbc3/?embed_media_shr=1",
+                    isIframe: true
+                }, 
             ],
             entertainment: [
                 { 
@@ -164,6 +189,15 @@
                     description: "منصة شاهد للأفلام والمسلسلات العربية والعالمية",
                     image: "https://te.legra.ph/file/aad2e08c6a638427f02ee.jpg",
                     url: "https://shls-live-ak.akamaized.net/out/v1/0044dd4b001a466c941ad77b04a574a2/index_8.m3u8"
+                }
+            ],
+            sports: [
+                {
+                    name: "الرابعة الرياضية",
+                    description: "قناة الرابعة الرياضية العراقية",
+                    image: "https://te.legra.ph/file/b4249aa6818c9abcecfd4.png",
+                    url: "https://tlfaz.com/Tv-Channel/al-rabiaa-tv/?embed_media_shr=1",
+                    isIframe: true
                 }
             ]
         };
@@ -192,7 +226,7 @@
                         <p class="mt-2 text-sm text-gray-600">${channel.description}</p>
                     </div>
                 `;
-                card.addEventListener('click', () => openModal(channel.url));
+                card.addEventListener('click', () => openModal(channel.url, channel.isIframe));
                 grid.appendChild(card);
             });
             document.getElementById('categorySelection').classList.add('hidden');
@@ -201,7 +235,7 @@
             updateBackButtonVisibility();
         }
 
-        function openModal(url) {
+        function openModal(url, isIframe) {
             const modal = document.getElementById('videoModal');
             const videoContainer = document.getElementById('videoContainer');
             videoContainer.innerHTML = '<div class="loading"></div>';
@@ -209,10 +243,14 @@
             modal.classList.add('flex');
 
             setTimeout(() => {
-                videoContainer.innerHTML = `<video id="videoPlayer" class="w-full h-full" controls autoplay>
-                    <source src="${url}" type="application/x-mpegURL">
-                    Your browser does not support the video tag.
-                </video>`;
+                if (isIframe) {
+                    videoContainer.innerHTML = `<iframe src="${url}" width="100%" height="100%" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                } else {
+                    videoContainer.innerHTML = `<video id="videoPlayer" class="w-full h-full" controls autoplay>
+                        <source src="${url}" type="application/x-mpegURL">
+                        Your browser does not support the video tag.
+                    </video>`;
+                }
             }, 2000);
         }
 
@@ -222,7 +260,6 @@
             const videoPlayer = document.getElementById('videoPlayer');
 
             if (videoPlayer) {
-                videoPlayer.pause();
                 videoPlayer.src = '';
                 videoPlayer.load();
             }
