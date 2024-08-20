@@ -141,6 +141,18 @@
                     image: "https://te.legra.ph/file/f5110d84fababc9a15011.png",
                     url: "https://tlfaz.com/Tv-Channel/iraqia-general/?embed_media_shr=1",
                     isIframe: true
+                },
+                {
+                    name: "دجلة",
+                    description: "قناة دجلة الفضائية العراقية",
+                    image: "https://dijlah.tv/templates/default/images/logo.png",
+                    url: "https://ghaasiflu.online/Dijlah/index.m3u8"
+                },
+                {
+                    name: "U TV",
+                    description: "قناة يو تي في العراقية",
+                    image: "https://www.utv.iq/assets/images/logo.png",
+                    url: "https://ythlsgo.onrender.com/channel/UCnPCuJUVRZkufQ2vgmBZwJA.m3u8"
                 }
             ],
             kids: [
@@ -166,6 +178,12 @@
                 }, 
             ],
             entertainment: [
+                { 
+                    name: "ام بي سي 1", 
+                    description: "قناة MBC1 للترفيه العائلي", 
+                    image: "https://upload.wikimedia.org/wikipedia/commons/8/81/Mbc1logo.png", 
+                    url: "https://d3o3cim6uzorb4.cloudfront.net/out/v1/0965e4d7deae49179172426cbfb3bc5e/index.m3u8" 
+                },
                 { 
                     name: "ام بي سي 2", 
                     description: "قناة أفلام ومسلسلات عالمية", 
@@ -216,7 +234,7 @@
             grid.innerHTML = '';
             channels[category].forEach(channel => {
                 const card = document.createElement('div');
-                card.className = 'channel-card bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transform transition duration-500 hover:scale-105';
+                card.className = 'channel-card bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transform transition duration -500 hover:scale-105';
                 card.innerHTML = `
                     <div class="relative h-48">
                         <img src="${channel.image}" alt="${channel.name}" class="w-full h-full object-contain p-4">
@@ -290,4 +308,4 @@
         };
     </script>
 </body>
-</html>
+</html>  
